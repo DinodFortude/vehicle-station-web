@@ -1,0 +1,12 @@
+.dashboard-toolbar {
+    position: fixed;
+    position: -webkit-sticky; /* For macOS/iOS Safari */
+    top: 0; /* Sets the sticky toolbar to be on top */
+    width: 100%;
+    z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
+}
+
+.box {
+  position: relative;
+  top: 60px;
+}

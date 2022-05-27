@@ -1,0 +1,155 @@
+<br />
+<app-file-uploader></app-file-uploader>
+<br />
+
+<kendo-grid
+  #grid
+  [data]="gridView"
+  [height]="400"
+  [filterable]="true"
+  [filter]="filter"
+  [navigable]="true"
+  [pageable]="true"
+  [pageSize]="pageSize"
+  [skip]="skip"
+  (pageChange)="pageChange($event)"
+  [loading]="loading"
+  (add)="addHandler($event)"
+  (edit)="editHandler($event)"
+  (cancel)="cancelHandler($event)"
+  (save)="saveHandler($event)"
+  (remove)="removeHandler($event)"
+  (filterChange)="filterChange($event)"
+>
+  <kendo-grid-excel fileName="Vehicles.csv" [fetchData]="allData" #excelexport>
+  </kendo-grid-excel>
+  <ng-template kendoGridToolbarTemplate>
+    <button kendoGridAddCommand type="button" themeColor="info">Add new</button>
+    <div class="fill-remaining-space"></div>
+    <kendo-floatinglabel text="Enter Vehicle Age" [style.width.px]="150">
+      <kendo-numerictextbox
+        [style.width.px]="100"
+        format="0"
+        decimal="0"
+        [min]="0"
+        [value]="age"
+        [(ngModel)]="age"
+        (valueChange)="onChange($event)"
+      ></kendo-numerictextbox>
+    </kendo-floatinglabel>
+    <br />
+    <kendo-toolbar>
+      <kendo-toolbar-button
+        icon="file-csv"
+        text="Export to CSV"
+        (click)="exportCSV()"
+        themeColor="success"
+      ></kendo-toolbar-button>
+    </kendo-toolbar>
+  </ng-template>
+
+  <kendo-grid-column
+    field="id"
+    title="ID"
+    editor="numeric"
+    [filterable]="false"
+    [hidden]="true"
+  ></kendo-grid-column>
+  <kendo-grid-column
+    field="first_name"
+    title="First Name"
+    editor="text"
+    [filterable]="false"
+  ></kendo-grid-column>
+  <kendo-grid-column
+    field="last_name"
+    title="Last Name"
+    editor="text"
+    [filterable]="false"
+  ></kendo-grid-column>
+  <kendo-grid-column
+    field="email"
+    title="Email"
+    editor="text"
+    [filterable]="false"
+  ></kendo-grid-column>
+  <kendo-grid-column
+    field="car_make"
+    title="Car Make"
+    editor="text"
+    [filterable]="false"
+  ></kendo-grid-column>
+  <kendo-grid-column field="car_model" title="Model" editor="text">
+    <ng-template kendoGridFilterCellTemplate let-filter let-column="column">
+      <kendo-grid-string-filter-cell
+        [showOperators]="false"
+        [column]="column"
+        [filter]="filter"
+      >
+      </kendo-grid-string-filter-cell>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column
+    field="vin_number"
+    title="Vin Number"
+    editor="text"
+    [filterable]="false"
+  ></kendo-grid-column>
+  <kendo-grid-column
+    field="manufactured_date"
+    title="Manufactured Date"
+    editor="date"
+    [filterable]="false"
+    format="yyyy-MM-dd"
+  >
+    <ng-template
+      kendoGridEditTemplate
+      let-dataItem="dataItem"
+      let-column="column"
+      let-formGroup="formGroup"
+    >
+      <kendo-datepicker
+        [format]="fullFormat"
+        [formControl]="formGroup.get(column.field)"
+        [(value)]="formGroup.get(column.field).value"
+        (valueChange)="changeDate($event)"
+        [max]="max"
+        required
+      >
+      </kendo-datepicker>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-column
+    field="age_of_vehicle"
+    title="Vehicle Age"
+    [editable]="false"
+    [filterable]="false"
+  >
+    <ng-template
+      kendoGridCellTemplate
+      let-dataItem
+      let-rowIndex="rowIndex"
+      let-isNew="isNew"
+    >
+      <span *ngIf="isNew" else index> </span>
+      <!-- <span *ngIf="!isNew">
+        {{ rowIndex === editedRowIndex ? age : dataItem.age_of_vehicle }}
+      </span> -->
+      <span #index>
+        {{ rowIndex === editedRowIndex ? ageString : dataItem.age_of_vehicle }}
+      </span>
+    </ng-template>
+  </kendo-grid-column>
+  <kendo-grid-command-column title="command">
+    <ng-template kendoGridCellTemplate let-isNew="isNew">
+      <button kendoGridEditCommand type="button" [primary]="true">Edit</button>
+      <button kendoGridRemoveCommand type="button">Remove</button>
+      <button kendoGridSaveCommand type="button" [disabled]="false">
+        {{ isNew ? "Add" : "Update" }}
+      </button>
+      <button kendoGridCancelCommand type="button">
+        {{ isNew ? "Discard changes" : "Cancel" }}
+      </button>
+    </ng-template>
+  </kendo-grid-command-column>
+</kendo-grid>

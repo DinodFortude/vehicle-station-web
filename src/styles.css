@@ -1,0 +1,83 @@
+/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import "~angular-notifier/styles.css";
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+div.container {
+    margin: 0px 40px;
+}
+
+.fill-remaining-space {
+    /* This fills the remaining space, by using flexbox. 
+       Every toolbar row uses a flexbox row layout. */
+    flex: 1 1 auto;
+}
+
+form.normal-form {
+    margin: 10px;
+}
+
+.controles-container {
+    width: 100%;
+    padding: 5%;
+}
+
+.controles-container>* {
+    width: 100%;
+}
+
+.add-bottom-padding {
+    padding-bottom: 10px;
+}
+
+.button {
+    cursor: pointer;
+}
+
+.mat-select-content {
+    border-radius: 5px;
+    text-align: center;
+    padding: 5px;
+    font-family: sans-serif;
+    font-size: larger;
+}
+
+.charge-box {
+    font-size: 17px;
+    color: rgb(38, 16, 179);
+    font-weight: bold;
+}
+
+.icon-display {
+    transform: scale(1);
+}
+
+.available {
+    background-color: chartreuse;
+}
+
+.unavailable {
+    background-color: rgb(247, 58, 90);
+}
+
+.show {
+    background-color: rgb(189, 198, 241);
+}
+
+.update {
+    background-color: rgb(0, 140, 255);
+}
+
+.delete {
+    background-color: rgb(255, 172, 172);
+}
